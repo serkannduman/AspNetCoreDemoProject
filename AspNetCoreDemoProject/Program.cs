@@ -14,7 +14,7 @@ namespace AspNetCoreDemoProject
             // Add services to the container.
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            builder.Services.AddSession(); // oturum ekleme iþlemi
+            
 
             builder.Services.AddMvc(config =>   //Tüm projeye eriþim engeli koyuyor , Login controllerda index metoduna AllowAnonymous attribute'i koyduk giriþ yaptýktan sonra diðer actionlara eriþim engelini kaldýrýcaz 
             {
@@ -47,7 +47,9 @@ namespace AspNetCoreDemoProject
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();
+            app.UseAuthentication();
+
+            
 
             app.UseRouting();
 
