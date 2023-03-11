@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Net;
+
 namespace AspNetCoreDemoProject
 {
     public class Program
@@ -8,6 +13,24 @@ namespace AspNetCoreDemoProject
 
             // Add services to the container.
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            builder.Services.AddSession(); // oturum ekleme iþlemi
+
+            builder.Services.AddMvc(config =>   //Tüm projeye eriþim engeli koyuyor , Login controllerda index metoduna AllowAnonymous attribute'i koyduk giriþ yaptýktan sonra diðer actionlara eriþim engelini kaldýrýcaz 
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            builder.Services.AddMvc();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(x =>
+                {
+                    x.LoginPath = "/Login/Index"; // Giriþ yapmayan kullancýlarý diðer sayfalara týkladýgýnda  Login/Index action'ýna yönlendirdik.
+                });
 
             var app = builder.Build();
 
@@ -23,6 +46,8 @@ namespace AspNetCoreDemoProject
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
