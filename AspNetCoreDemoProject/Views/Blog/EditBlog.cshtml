@@ -1,0 +1,53 @@
+﻿@model EntityLayer.Concrete.Blog
+
+@{
+    ViewData["Title"] = "EditBlog";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Blog Düzenleme Sayfası</h1>
+
+<form asp-controller="Blog" asp-action="EditBlog" method="post">
+    <div class="mb-3">
+        <label for="BlogID" class="form-label">Blog ID</label>
+        <input type="text" asp-for="BlogID" class="form-control" aria-describedby="emailHelp">
+        <span class="text-danger" asp-validation-for="BlogID"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="BlogTitle" class="form-label">Blog Başlığı</label>
+        <input type="text" asp-for="BlogTitle" class="form-control" aria-describedby="emailHelp">
+        <span class="text-danger" asp-validation-for="BlogTitle"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="BlogImage" class="form-label">Blog Görseli</label>
+        <input type="text" asp-for="BlogImage" class="form-control" aria-describedby="emailHelp">
+        <span class="text-danger" asp-validation-for="BlogImage"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="ThumbnailImage" class="form-label">Blog Küçük Görsel</label>
+        <input type="text" asp-for="ThumbnailImage" class="form-control" aria-describedby="emailHelp">
+        <span class="text-danger" asp-validation-for="ThumbnailImage"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="CategoryID" class="form-label">Kategori</label>
+        <select asp-for="CategoryID" class="form-control" asp-items="@ViewBag.cv"></select>
+        @*<input type="text" asp-for="CategoryID" class="form-control" aria-describedby="emailHelp">*@
+        <span class="text-danger" asp-validation-for="CategoryID"></span>
+
+    </div>
+    <div class="mb-3">
+        <label for="BlogContent" class="form-label">Blog İçeriği</label>
+        <textarea asp-for="BlogContent" class="form-control"></textarea>
+        @*<input type="text" asp-for="CategoryID" class="form-control" aria-describedby="emailHelp">*@
+        <span class="text-danger" asp-validation-for="BlogContent"></span>
+
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Güncelle</button>
+</form>
+
