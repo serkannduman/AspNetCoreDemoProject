@@ -25,7 +25,7 @@ namespace AspNetCoreDemoProject.Controllers
             {
 				writer.WriterStatus = true;
 				writer.WriterAbout = "Deneme Test";
-				wm.WriterAdd(writer);
+				wm.TAdd(writer);
 				return RedirectToAction("Index", "Blog");
 			}
             else
