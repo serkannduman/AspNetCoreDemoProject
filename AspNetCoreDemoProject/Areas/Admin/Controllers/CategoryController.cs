@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace AspNetCoreDemoProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CategoryController : Controller
     {
-        public IActionResult Index()
+        CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+        public IActionResult Index(int page=1)
         {
-            return View();
+            var values = cm.GetList().ToPagedList(page, 3);
+            return View(values);
         }
     }
 }
